@@ -519,7 +519,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="card-body">
-                    <form action="https://my-mails.onrender.com/send-email" method="POST">
+                    <form id="contactForm" method="POST">
                       <div class="p pb-3"><strong>Feel free to contact me </strong></div>
                       <div class="row mb-3">
                         <div class="col">
@@ -554,6 +554,7 @@
                           <button class="btn btn-primary" type="submit">Send</button>
                         </div>
                       </div>
+                      <div id="responseMessage" style="margin-top: 20px;"></div>
                     </form>
                   </div>
                 </div>
@@ -583,6 +584,30 @@
        
       </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#contactForm").on("submit", function (e) {
+      e.preventDefault(); // Prevent default form submission
+      
+      var formData = $(this).serialize(); // Serialize form data
+      
+      $.ajax({
+        url: "https://my-mails.onrender.com/send-email",
+        type: "POST",
+        data: formData,
+        success: function (response) {
+          // Show the success message
+          $("#responseMessage").html("<div class='alert alert-success'>Email sent successfully!</div>");
+        },
+        error: function (xhr, status, error) {
+          // Show the error message
+          $("#responseMessage").html("<div class='alert alert-danger'>Failed to send the email. Please try again.</div>");
+        }
+      });
+    });
+  });
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
     <script src="js/core/jquery.3.2.1.min.js?ver=1.1.0"></script>
     <script src="js/core/popper.min.js?ver=1.1.0"></script>
