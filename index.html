@@ -551,7 +551,11 @@
                       </div>
                       <div class="row">
                         <div class="col">
-                          <button class="btn btn-primary" type="submit">Send</button>
+                          <button class="btn btn-primary" id="submitButton" type="submit">Send</button>
+                          <div id="loader" style="display:none;">
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            Sending...
+                          </div>
                         </div>
                       </div>
                       <div id="responseMessage" style="margin-top: 20px;"></div>
@@ -588,21 +592,27 @@
 <script>
   $(document).ready(function () {
     $("#contactForm").on("submit", function (e) {
-      e.preventDefault(); // Prevent default form submission
+      e.preventDefault(); 
       
-      var formData = $(this).serialize(); // Serialize form data
+      var formData = $(this).serialize();
+      $("#submitButton").hide();
+      $("#loader").show();
       
       $.ajax({
         url: "https://my-mails.onrender.com/send-email",
         type: "POST",
         data: formData,
         success: function (response) {
-          // Show the success message
           $("#responseMessage").html("<div class='alert alert-success'>Email sent successfully!</div>");
+          $("#contactForm")[0].reset(); 
+          $("#loader").hide();
+          $("#submitButton").show();
         },
         error: function (xhr, status, error) {
           // Show the error message
           $("#responseMessage").html("<div class='alert alert-danger'>Failed to send the email. Please try again.</div>");
+          $("#loader").hide();
+          $("#submitButton").show();
         }
       });
     });
