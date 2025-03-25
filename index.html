@@ -58,8 +58,10 @@
                 <div class="h2 title">Adnan Ali</div>
                 <p class="category text-white">Web Developer, Web Designer, Application Developer , Back-end Developer
                 </p><a class="btn btn-primary smooth-scroll mr-2" href="#contact" data-aos="zoom-in"
-                  data-aos-anchor="data-aos-anchor">Hire Me</a><a class="btn btn-primary" id="downloadCV"
-                  data-aos="zoom-in" data-aos-anchor="data-aos-anchor">Download CV</a>
+                  data-aos-anchor="data-aos-anchor">Hire Me</a>
+                  <a class="btn btn-primary" id="downloadCV" data-aos="zoom-in" data-aos-anchor="data-aos-anchor">
+                    Download CV
+                 </a>
               </div>
             </div>
             <div class="section">
@@ -706,23 +708,16 @@
   <script src="js/aos.js?ver=1.1.0"></script>
   <script src="scripts/main.js?ver=1.1.0"></script>
   <script>
-    document.getElementById('downloadCV').addEventListener('click', function () {
-      // Select the element you want to convert to PDF
-      var element = document.getElementById("portPolio"); // or specify another element
-
-      // Options for html2pdf
-      var options = {
-        margin: 0.5,
-        filename: 'Adnan_Portfolio.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-      };
-
-      // Generate PDF
-      html2pdf().from(element).set(options).save();
+    document.getElementById('downloadCV').addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent default action
+        var link = document.createElement('a');
+        link.href = 'Adnan_resume.pdf';  // PDF ka path
+        link.download = 'Adnan_resume.pdf'; // File ka naam
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     });
-  </script>
+</script>
 
 </body>
 
